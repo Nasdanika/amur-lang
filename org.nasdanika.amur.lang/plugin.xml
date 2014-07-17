@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+  <extension-point id="language" name="Language" schema="schema/language.exsd"/>
+  <extension-point id="translator" name="Translator implementations" schema="schema/translator.exsd"/>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="urn:org.nasdanika.amur.lang"
+            class="org.nasdanika.amur.lang.LangPackage"
+            genModel="model/Lang.genmodel"/>
+   </extension>
+
+   <extension
+         point="org.nasdanika.amur.lang.language">
+      <language
+            class="org.nasdanika.amur.lang.impl.FileReferenceLanguageImpl"
+            description="References workspace file and specifies its language."
+            id="org.nasdanika.amur.lang.FileReference"
+            name="File reference"
+            url="http://www.nasdanika.com/wiki/doku.php?id=products:amur_js:languages:file_reference">
+      </language>
+   </extension>
+
+
+</plugin>

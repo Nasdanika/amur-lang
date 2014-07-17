@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.nasdanika.amur.lang/src" modelPluginID="org.nasdanika.amur.lang"
+    modelName="Lang" rootExtendsInterface="org.eclipse.emf.cdo.CDOObject" rootExtendsClass="org.eclipse.emf.internal.cdo.CDOObjectImpl"
+    reflectiveDelegation="true" importerID="org.eclipse.emf.importer.cdo" featureDelegation="Reflective"
+    complianceLevel="7.0" copyrightFields="false" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore">
+  <foreignModel>Lang.ecore</foreignModel>
+  <modelPluginVariables>CDO=org.eclipse.emf.cdo</modelPluginVariables>
+  <genPackages prefix="Lang" basePackage="org.nasdanika.amur" disposableProviderFactory="true"
+      ecorePackage="Lang.ecore#/">
+    <genDataTypes ecoreDataType="Lang.ecore#//Editor"/>
+    <genDataTypes ecoreDataType="Lang.ecore#//IFile"/>
+    <genDataTypes ecoreDataType="Lang.ecore#//IProgressMonitor"/>
+    <genDataTypes ecoreDataType="Lang.ecore#//Exception"/>
+    <genClasses image="false" ecoreClass="Lang.ecore#//SourceValidator">
+      <genTypeParameters ecoreTypeParameter="Lang.ecore#//SourceValidator/S"/>
+      <genOperations ecoreOperation="Lang.ecore#//SourceValidator/validate">
+        <genParameters ecoreParameter="Lang.ecore#//SourceValidator/validate/diagnostic"/>
+        <genParameters ecoreParameter="Lang.ecore#//SourceValidator/validate/source"/>
+        <genParameters ecoreParameter="Lang.ecore#//SourceValidator/validate/context"/>
+      </genOperations>
+    </genClasses>
+    <genClasses image="false" ecoreClass="Lang.ecore#//Language">
+      <genTypeParameters ecoreTypeParameter="Lang.ecore#//Language/S"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Lang.ecore#//Language/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Lang.ecore#//Language/uid"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Lang.ecore#//Language/version"/>
+      <genOperations ecoreOperation="Lang.ecore#//Language/createEditors"/>
+      <genOperations ecoreOperation="Lang.ecore#//Language/createSource">
+        <genParameters ecoreParameter="Lang.ecore#//Language/createSource/original"/>
+      </genOperations>
+      <genOperations ecoreOperation="Lang.ecore#//Language/mimeTypes"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="Lang.ecore#//Source">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Lang.ecore#//Source/language"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Lang.ecore#//Source/editor"/>
+      <genOperations ecoreOperation="Lang.ecore#//Source/validate">
+        <genParameters ecoreParameter="Lang.ecore#//Source/validate/diagnostic"/>
+        <genParameters ecoreParameter="Lang.ecore#//Source/validate/context"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="Lang.ecore#//TextSource">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Lang.ecore#//TextSource/text"/>
+    </genClasses>
+    <genClasses ecoreClass="Lang.ecore#//Script">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Lang.ecore#//Script/properties"/>
+    </genClasses>
+    <genClasses ecoreClass="Lang.ecore#//Property">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Lang.ecore#//Property/key"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Lang.ecore#//Property/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Lang.ecore#//PropertyValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Lang.ecore#//PropertyValue/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Lang.ecore#//PropertyValue/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Lang.ecore#//PropertyValue/description"/>
+    </genClasses>
+    <genClasses ecoreClass="Lang.ecore#//ByteSource">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Lang.ecore#//ByteSource/bytes"/>
+    </genClasses>
+    <genClasses ecoreClass="Lang.ecore#//OpaqueSource"/>
+    <genClasses ecoreClass="Lang.ecore#//GenericLanguage">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Lang.ecore#//GenericLanguage/mimeTypes"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="Lang.ecore#//TextualLanguage"/>
+    <genClasses image="false" ecoreClass="Lang.ecore#//TextualFilerLanguage"/>
+    <genClasses image="false" ecoreClass="Lang.ecore#//Filer">
+      <genTypeParameters ecoreTypeParameter="Lang.ecore#//Filer/S"/>
+      <genOperations ecoreOperation="Lang.ecore#//Filer/load">
+        <genParameters ecoreParameter="Lang.ecore#//Filer/load/file"/>
+        <genParameters ecoreParameter="Lang.ecore#//Filer/load/monitor"/>
+      </genOperations>
+      <genOperations ecoreOperation="Lang.ecore#//Filer/store">
+        <genParameters ecoreParameter="Lang.ecore#//Filer/store/source"/>
+        <genParameters ecoreParameter="Lang.ecore#//Filer/store/file"/>
+        <genParameters ecoreParameter="Lang.ecore#//Filer/store/monitor"/>
+      </genOperations>
+      <genOperations ecoreOperation="Lang.ecore#//Filer/defaultExtension"/>
+    </genClasses>
+    <genClasses ecoreClass="Lang.ecore#//Proxy">
+      <genTypeParameters ecoreTypeParameter="Lang.ecore#//Proxy/S"/>
+      <genTypeParameters ecoreTypeParameter="Lang.ecore#//Proxy/T"/>
+      <genOperations ecoreOperation="Lang.ecore#//Proxy/resolve">
+        <genParameters ecoreParameter="Lang.ecore#//Proxy/resolve/source"/>
+        <genParameters ecoreParameter="Lang.ecore#//Proxy/resolve/monitor"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="Lang.ecore#//FileReferenceLanguage">
+      <genTypeParameters ecoreTypeParameter="Lang.ecore#//FileReferenceLanguage/S"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Lang.ecore#//FileReferenceLanguage/filer"/>
+    </genClasses>
+    <genClasses ecoreClass="Lang.ecore#//FileReference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Lang.ecore#//FileReference/path"/>
+    </genClasses>
+    <genClasses ecoreClass="Lang.ecore#//Translator"/>
+  </genPackages>
+</genmodel:GenModel>

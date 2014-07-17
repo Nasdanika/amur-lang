@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.nasdanika.amur.lang.feature"
+      label="Language support"
+      version="1.0.0.qualifier"
+      provider-name="Nasdanika">
+
+   <description>
+      Amur Language Support
+   </description>
+
+   <copyright>
+      Copyright (c) 2014 Nasdanika LLC. All rights reserved.
+   </copyright>
+
+   <license url="">
+      Eclipse public license.
+   </license>
+
+   <plugin
+         id="org.nasdanika.amur.lang"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.nasdanika.amur.lang.feature_1.0.0.qualifier.jar" id="org.nasdanika.amur.lang.feature" version="1.0.0.qualifier">
+      <category name="org.nasdanika.amur.lang.category"/>
+   </feature>
+   <category-def name="org.nasdanika.amur.lang.category" label="Amur Language Support">
+      <description>
+         Amur language support.
+      </description>
+   </category-def>
+</site>
