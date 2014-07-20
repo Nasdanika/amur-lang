@@ -12,6 +12,8 @@
 	<modules>
 		<module>org.nasdanika.amur.lang</module>
 		<module>org.nasdanika.amur.lang.edit</module>
+		<module>org.nasdanika.amur.lang.causality</module>
+		<module>org.nasdanika.amur.lang.causality.edit</module>
 		<module>org.nasdanika.amur.lang.feature</module>
 		<module>org.nasdanika.amur.lang.repository</module>
 	</modules>

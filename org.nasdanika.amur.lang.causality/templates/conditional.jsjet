@@ -1,0 +1,32 @@
+<%@ jet package="org.nasdanika.amur.lang.causality.render.js" class="ConditionalRenderer" skeleton="Renderer.skeleton" imports="org.nasdanika.amur.lang.causality.*" %>
+<% Conditional conditional = (Conditional) eObject; %>
+<% if (Mode.SYNCHRONOUS.equals(mode)) {
+	int pidx = 0;	
+	for (ConditionalPart cPart: conditional.getParts()) { %>
+		<% if (pidx>0) { %>else <% } %><% if (cPart.getCondition()!=null) { %>if (<%=cPart.getCondition()%>)<% } %> {
+			<%=cPart.getTemplate().toJavaScript(mode)%>
+		}
+<%
+		++pidx; 
+	} 
+%>
+<% } else {
+	int pidx = 0;	
+	for (ConditionalPart cPart: conditional.getParts()) { %>
+		function($out) {
+			<% if (pidx>0) { %>return <% } %><% if (cPart.getCondition()==null) { %><%=cPart.getTemplate().toJavaScript(mode)%><% } else { %><%=cPart.getCondition()%>.then(function(condition) {
+				if (condition) {
+					return <%=cPart.getTemplate().toJavaScript(mode)%>;		
+				}
+<%
+		}
+		++pidx; 
+	} 
+%>
+
+				<% for (int i=0; i<pidx-1; ++i) { %> }.bind(this)); <% } %>
+	
+			}.bind(this))
+		}.bind(this)
+<% } %>		
+}

@@ -1,0 +1,49 @@
+<%@ jet package="org.nasdanika.amur.lang.causality.render.js" class="TranslationUnitRenderer" skeleton="TranslationUnitRenderer.skeleton" imports="org.nasdanika.amur.lang.causality.*" %>
+
+<% 
+	if (outputExpression == null || outputExpression.trim().length()==0) { 
+		outputExpression = "\"\""; 
+	}
+	if (returnExpression == null || returnExpression.trim().length()==0) { 
+		returnExpression = "$result"; 
+	}
+%>
+
+	var $interpolators = {
+	
+		/* Exports function through $facade.$exportCallback, if it is a function. */
+		"function": function(val) {
+			if (typeof $facade.$exportCallback == 'function') {
+				return $facade.$exportCallback(val);
+			}
+			return val; // Do nothing otherwise.
+		}
+	};
+
+<% if (Mode.SYNCHRONOUS.equals(mode)) { %>	
+	<% if (!"$out".equals(outputExpression)) { %>var $out = <%=outputExpression%>;<% } %> 	
+
+	<% for (TemplateElement part: translationUnit.getElements()) { %>
+		<%= part.toJavaScript(mode) %>
+	<% } %>
+
+	var $result = $out;
+	return <%=returnExpression%>;
+<% } else if (Mode.SEQUENTIAL.equals(mode)) { %>
+	var $templateContext = {};
+	var $result = $promiseProvider.when(<%=outputExpression%>)<% for (TemplateElement part: translationUnit.getElements()) { %>.then(<%=part.toJavaScript(mode)%>)<% } %>;
+	return <%=returnExpression%>;
+<% } else { %>
+	var $result = $promiseProvider.all([<%=outputExpression%>,
+	<% for (int i=0; i < translationUnit.getElements().size(); ++i) { %>
+		<% if (i>0) { %>, <% } %><%= translationUnit.getElements().get(i).toJavaScript(mode) %>
+	<% } %>
+	]).then(function(results) {
+		if (typeof results[0].write == "function") {
+			results[0].write(results.slice(1).join(""));
+			return results[0];
+		}
+		return results.join("");
+	});
+	return <%=returnExpression%>;	
+<% } %>

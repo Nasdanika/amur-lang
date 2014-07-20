@@ -1,0 +1,6 @@
+<%@ jet package="org.nasdanika.amur.lang.causality.render.js" class="FromSynchronousRenderer" skeleton="SectionRenderer.skeleton" imports="org.nasdanika.amur.lang.causality.*" %>
+<% if (Mode.SYNCHRONOUS.equals(mode)) { %>	
+	<%= template %>;
+<% } else { %>
+	$promiseProvider.when($out).then(<%= template %>).then(function($newOut) { $out = $newOut }).done();
+<% } %>

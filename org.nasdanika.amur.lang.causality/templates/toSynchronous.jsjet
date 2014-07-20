@@ -1,0 +1,9 @@
+<%@ jet package="org.nasdanika.amur.lang.causality.render.js" class="ToSynchronousRenderer" skeleton="SectionRenderer.skeleton" imports="org.nasdanika.amur.lang.causality.*" %>
+<% if (Mode.SYNCHRONOUS.equals(mode)) { %>	
+	<%= template %>;
+<% } else { %>
+	function($out) {
+		<%= template %>;
+		return $out;
+	}.bind(this)
+<% } %>

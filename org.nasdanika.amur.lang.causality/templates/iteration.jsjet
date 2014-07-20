@@ -1,0 +1,41 @@
+<%@ jet package="org.nasdanika.amur.lang.causality.render.js" class="IterationRenderer" skeleton="Renderer.skeleton" imports="org.nasdanika.amur.lang.causality.*" %>
+<% 
+	Iteration iteration = (Iteration) eObject;
+	String iterableVar = "$iterable_"+iteration.getId(); 
+%>
+
+<% if (Mode.SYNCHRONOUS.equals(mode)) { %>
+	var <%=iterableVar%> = <%=iteration.getIterable()%>;	
+	for (var <%=iteration.getKey()%> in <%=iterableVar%>) {
+		var <%=iteration.getValue()%> = <%=iterableVar%>[<%=iteration.getValue()%>];
+		<%=iteration.getTemplate().toJavaScript(mode)%>
+	} 
+<% } else if (Mode.SEQUENTIAL.equals(mode)) { %>
+	function($out) {
+		return <%= iteration.getIterable() %>.then(function($iterable) {
+			var $stepResult = $out;
+			if ($iterable) {
+				for (var $key in $iterable) {
+					$stepResult = $promiseProvider.all([$key, $iterable[$key], $stepResult]).spread(function(<%=iteration.getKey()%>, <%=iteration.getValue()%>, $stepResultAccumulator) {
+						return <%=iteration.getTemplate().toJavaScript(mode)%>($stepResultAccumulator);
+					}.bind(this));			
+				}
+			}
+			return $stepResult; 	
+		}.bind(this));
+	}.bind(this)	
+<% } else { %>
+	<%= iteration.getIterable() %>.then(function($iterable) {
+		var results=[];
+		if ($iterable) {
+			for (var $key in $iterable) {
+				results.push($promiseProvider.all([$key, $iterable[$key]]).spread(function(<%= iteration.getKey() %>, <%= iteration.getValue() %>) {
+						return <%= iteration.getTemplate().toJavaScript(mode) %>("");
+				}.bind(this)));
+			} 	
+		}		
+		return $promiseProvider.all(results).then(function(res) {
+			return res.join("");
+		});			
+	}.bind(this))
+<% } %>

@@ -15,6 +15,7 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.SimpleBindings;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
@@ -226,6 +227,35 @@ public class LangUtil {
 
 	private static boolean notBlank(String str) {
 		return str!=null && str.trim().length()>0;
+	}
+	
+	public static Language<?> getLanguage(String languageId) throws Exception {
+		IConfigurationElement[] config = Platform.getExtensionRegistry().getConfigurationElementsFor("org.nasdanika.amur.lang.language");
+		for (IConfigurationElement ce: config) {
+			Language<?> ret = getLanguage(ce, languageId); 
+			if (ret!=null) {
+				return ret;
+			}
+		}
+		
+		return null;
+	}
+
+	private static Language<?> getLanguage(IConfigurationElement ce, String languageId) throws CoreException {
+		if ("language".equals(ce.getName())) {
+			return languageId.equals(ce.getAttribute("id")) ? (Language<?>) ce.createExecutableExtension("class") : null;
+		} 
+		
+		if ("category".equals(ce.getName())) {
+			for (IConfigurationElement cc: ce.getChildren()) {
+				Language<?> ret = getLanguage(cc, languageId);
+				if (ret!=null) {
+					return ret;
+				}
+			}
+		}
+		
+		return null;
 	}
 	
 }

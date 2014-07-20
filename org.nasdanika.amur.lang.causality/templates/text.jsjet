@@ -1,0 +1,17 @@
+<%@ jet package="org.nasdanika.amur.lang.causality.render.js" class="TextRenderer" skeleton="Renderer.skeleton" imports="org.nasdanika.amur.lang.causality.*" %>
+<% if (Mode.SYNCHRONOUS.equals(mode)) { %>
+	if (typeof $out.write == "function") {
+		$out.write("<%=org.apache.commons.lang3.StringEscapeUtils.escapeEcmaScript(((Text) eObject).getValue())%>");
+	} else {
+		$out+="<%=org.apache.commons.lang3.StringEscapeUtils.escapeEcmaScript(((Text) eObject).getValue())%>";
+	}
+<% } else { %>
+	function($out) {
+		if (typeof $out.write == "function") {
+			$out.write("<%=org.apache.commons.lang3.StringEscapeUtils.escapeEcmaScript(((Text) eObject).getValue())%>");
+		} else {
+			$out+="<%=org.apache.commons.lang3.StringEscapeUtils.escapeEcmaScript(((Text) eObject).getValue())%>";
+		}
+		return $out;
+	}.bind(this)
+<% } %>

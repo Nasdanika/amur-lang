@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated Causality -->
+      <package
+            uri="urn:org.nasdanika.amur.lang.causality"
+            class="org.nasdanika.amur.lang.causality.CausalityPackage"
+            genModel="model/Causality.genmodel"/>
+   </extension>
+   <extension
+         point="org.nasdanika.amur.lang.language">
+      <category
+            description="Causality is a family of asynchronous promise-aware template languages."
+            id="org.nasdanika.amur.lang.causality"
+            name="Causality"
+            url="http://www.nasdanika.com/wiki/doku.php?id=products:amur_js:languages:causality">
+         <language
+               class="org.nasdanika.amur.lang.causality.impl.CausalityAPImpl"
+               description="Causality language which uses angle brackets and percent sign as delimiters"
+               icon="icons/ap.png"
+               id="org.nasdanika.amur.lang.causality.ap"
+               keywords="asynchronous template promise"
+               name="Causality AP"
+               url="http://www.nasdanika.com/wiki/doku.php?id=products:amur_js:languages:causality">
+         </language>
+         <language
+               class="org.nasdanika.amur.lang.causality.impl.CausalityCCImpl"
+               description="Causality language which uses double curly braces as delimiters"
+               icon="icons/cc.png"
+               id="org.nasdanika.amur.lang.causality.cc"
+               keywords="asynchronous template promise"
+               name="Causality CC"
+               url="http://www.nasdanika.com/wiki/doku.php?id=products:amur_js:languages:causality">
+         </language>
+         <language
+               class="org.nasdanika.amur.lang.causality.impl.CausalityCPImpl"
+               description="Causality language which uses curly braces with percent sign as delimiters"
+               icon="icons/cp.png"
+               id="org.nasdanika.amur.lang.causality.cp"
+               keywords="asynchronous template promise"
+               name="Causality CP"
+               url="http://www.nasdanika.com/wiki/doku.php?id=products:amur_js:languages:causality">
+         </language>
+      </category>
+   </extension>
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="toc.xml"
+            primary="false">
+      </toc>
+   </extension>
+   <extension
+         point="org.nasdanika.common.HtmlRenderer">
+      <html_renderer
+            class="org.nasdanika.amur.lang.causality.impl.CausalityHtmlRenderer">
+      </html_renderer>
+   </extension>
+
+</plugin>

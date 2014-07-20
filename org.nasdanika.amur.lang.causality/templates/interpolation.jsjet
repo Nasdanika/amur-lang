@@ -1,0 +1,23 @@
+<%@ jet package="org.nasdanika.amur.lang.causality.render.js" class="InterpolationRenderer" skeleton="Renderer.skeleton" imports="org.nasdanika.amur.lang.causality.*" %>
+<% if (Mode.SYNCHRONOUS.equals(mode)) { %>	
+	if (typeof $out.write == "function") {
+		$out.write(<%= ((Interpolation) eObject).getExpression() %>);
+	} else {
+		$out+=<%= ((Interpolation) eObject).getExpression() %>;
+	}
+<% } else { %>
+	function($out) {
+		return <%= ((Interpolation) eObject).getExpression() %>.then(function($interpolationResult) {
+			var $interpolator = $interpolators[typeof $interpolationResult];
+			if (typeof $interpolator == 'function') {
+				$interpolationResult = $interpolator($interpolationResult);
+			}
+			if (typeof $out.write == "function") {
+				$out.write($interpolationResult);
+			} else {
+				$out+=$interpolationResult;
+			}
+			return $out;
+		}.bind(this));
+	}.bind(this)
+<% } %>

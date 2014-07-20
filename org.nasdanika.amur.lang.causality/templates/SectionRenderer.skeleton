@@ -1,0 +1,6 @@
+public class CLASS {
+
+	public String render(org.nasdanika.amur.lang.causality.Mode mode, String template) {
+		return "";
+	}
+}

@@ -1,0 +1,12 @@
+<%@ jet package="org.nasdanika.amur.lang.causality.render.js" class="WhenRenderer" skeleton="Renderer.skeleton" imports="org.nasdanika.amur.lang.causality.*" %>
+<% When when = (When) eObject; %>
+<% if (Mode.SYNCHRONOUS.equals(mode)) { %>	
+	var <%= when.getVariable() %> = <%=when.getExpression()%>;
+	<%=when.getTemplate().toJavaScript(mode)%>
+<% } else { %>
+	function($out) {
+		return <%= when.getExpression() %>.then(function(<%= when.getVariable() %>) {
+			return $promiseProvider.when($out).then(<%= when.getTemplate().toJavaScript(mode) %>);
+		}.bind(this))		
+	}.bind(this)
+<% } %>

@@ -1,0 +1,9 @@
+<%@ jet package="org.nasdanika.amur.lang.causality.render.js" class="EvaluationRenderer" skeleton="Renderer.skeleton" imports="org.nasdanika.amur.lang.causality.*" %>
+<% if (Mode.SYNCHRONOUS.equals(mode)) { %>	
+	<%= ((Evaluation) eObject).getCode() %>
+<% } else { %>
+	function($out) {
+		<%= ((Evaluation) eObject).getCode() %>
+		return $out;
+	}.bind(this)
+<% } %>
